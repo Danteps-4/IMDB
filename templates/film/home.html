@@ -1,0 +1,46 @@
+{% extends "../base.html" %} 
+{% block title %}IMDB{% endblock %}
+{% block content %}
+
+<h1>Home page</h1>
+
+<div class="row mb-2">
+    <div class="col-md-6">
+{% for film in page_obj %}
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary-emphasis">{{film.release_date}}</strong>
+          <h3 class="mb-0">{{film.title}}</h3>
+          <div class="mb-1 text-body-secondary">⭐{{film.rating}}</div>
+          <p class="card-text mb-auto">{{film.summary}}</p>
+          
+          <a href="{% url 'film:single' film.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">More details</a>
+        
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img src="{{film.image.url}}" alt="{{film.title}}">
+        </div>
+      </div>
+{% endfor %}
+    </div>
+</div>
+
+<div class="pagination">
+  <span class="step-links">
+      {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; primera</a>
+          <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+      {% endif %}
+
+      <span class="current">
+          Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">siguiente</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+      {% endif %}
+  </span>
+</div>
+
+{% endblock %}

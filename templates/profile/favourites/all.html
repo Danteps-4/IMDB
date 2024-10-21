@@ -1,0 +1,18 @@
+{% extends "../../base.html" %} 
+{% block title %}Your favourites{% endblock %}
+{% block content %}
+
+<h1>Your favourites</h1>
+<p>Total: {{ favourites.count }} films</p>
+
+{% for film in favourites %}
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{film.title}}</h3>
+          <strong class="d-inline-block mb-2 text-primary-emphasis">⭐{{film.rating}} </strong>
+          <a href="{% url 'film:single' film.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">More details</a>
+        </div>
+      </div>
+{% endfor %}
+
+{% endblock %}

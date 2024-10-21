@@ -1,0 +1,13 @@
+{% extends "../../base.html" %} 
+{% block title %}Write a review: {{film.title}}{% endblock %}
+{% block content %}
+
+<h1>Write a review: <a href="{% url 'film:single' film.slug %}">{{film.title}}</a></h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{review_form}}
+    <button class="btn btn-primary" type="submit">Submit review</button>
+</form>
+
+{% endblock %}

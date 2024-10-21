@@ -1,0 +1,39 @@
+{% extends "../base.html" %} 
+{% block title %}{{film.title}}{% endblock %}
+{% block content %}
+
+{% if film in user.favourites.all %}
+<a href="{% url 'account:favourite_add' film.slug %}" class="btn btn-danger">Remove from favourites</a>
+{% else %}
+<a href="{% url 'account:favourite_add' film.slug %}" class="btn btn-success">Add to favourites</a>
+{% endif %}
+<h1>{{film.title}}</h1>
+<span>⭐{{film.rating}}</span>
+<span>{{film.duration}} min</span>
+
+<div>
+    <img src="{{film.image.url}}" alt="{{film.title}}">
+</div>
+
+<p>{{film.description}}</p>
+<div>
+    <span>Category:</span>
+    {% for category in film.category.all %}
+        <a href="{% url 'film:category_single' category.slug %}">{{category.name}}</a>
+    {% endfor %}
+</div>
+<div>
+    <span>Director: </span>
+    {% for director in film.director.all %}
+        <a href="{% url 'film:director_single' director.slug %}">{{director.first_name}} {{director.last_name}}</a>
+    {% endfor %}
+</div>
+
+<div>
+    <h3>User reviews ({{film.total_reviews}})</h3>
+    <a href="{% url 'film:review_all' film.slug %}">See all</a>
+    <a href="{% url 'film:review_write' film.slug %}">+Review</a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "../base.html" %} 
+{% block title %}Search {{q}}{% endblock %}
+{% block content %}
+
+<h1>Search for "{{q}}"</h1>
+
+<form action="" method="GET">
+    {{form}}
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+<h3>Films</h3>
+{% for film in films %}
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{film.title}}</h3>
+          <strong class="d-inline-block mb-2 text-primary-emphasis">{{film.rating}}</strong>
+          <a href="{% url 'film:single' film.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">More details</a>
+        </div>
+      </div>
+{% endfor %}
+
+<h3>Categories</h3>
+{% for category in categories %}
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{category.name}}</h3>
+          <strong class="d-inline-block mb-2 text-primary-emphasis">Films: {{category.total_films}}</strong>
+          <a href="{% url 'film:category_single' category.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">More details</a>
+        </div>
+      </div>
+{% endfor %}
+
+<h3>Directors</h3>
+{% for director in directors %}
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{director.first_name}} {{director.last_name}}</h3>
+          <strong class="d-inline-block mb-2 text-primary-emphasis">Films: {{director.total_films}}</strong>
+          <a href="{% url 'film:director_single' director.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">More details</a>
+        </div>
+      </div>
+{% endfor %}
+
+{% endblock %}

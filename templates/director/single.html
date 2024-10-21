@@ -1,0 +1,59 @@
+{% extends "../base.html" %} 
+{% block title %}{{director.first_name}} {{director.last_name}} - Biography{% endblock %}
+{% block content %}
+
+<h3>{{director.first_name}} {{director.last_name}}</h3>
+<h1>Biography</h1>
+
+<h4>Overview:</h4>
+<div class="gap-4 py-md-3">
+    <div class="list-group">
+      <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+          <div>
+            <h6 class="mb-0">Born</h6>
+            <p class="mb-0 opacity-75">{{director.date_of_birth}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+          <div>
+            <h6 class="mb-0">Age</h6>
+            <p class="mb-0 opacity-75">{{director.age}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="list-group-item list-group-item-action d-flex gap-3" aria-current="true">
+          <div>
+            <h6 class="mb-0">City of birth</h6>
+            <p class="mb-0 opacity-75">{{director.city_of_birth}}</p>
+          </div>
+        </div>
+      </a>
+</div>
+
+<h4>Biography:</h4>
+<div class="gap-4 py-md-3">
+    <div class="list-group">
+      <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+          <div>
+            <p class="mb-0 opacity-75">{{director.biography}}</p>
+          </div>
+        </div>
+      </div>
+</div>
+
+<h4>Work:</h4>
+{% for film in director.film_set.all %}
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+        <h3 class="mb-0">{{film.title}}</h3>
+        <strong class="d-inline-block mb-2 text-primary-emphasis">{{film.rating}}</strong>
+        <a href="{% url 'film:single' film.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">More details</a>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

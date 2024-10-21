@@ -1,0 +1,36 @@
+{% extends "../base.html" %} 
+{% block title %}All categories{% endblock %}
+{% block content %}
+
+<h1>All categories</h1>
+<p>Total categories: {{ categories.count }}</p>
+
+{% for category in page_obj %}
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{category.name}}</h3>
+          <strong class="d-inline-block mb-2 text-primary-emphasis">Films: {{category.total_films}}</strong>
+          <a href="{% url 'film:category_single' category.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">More details</a>
+        </div>
+      </div>
+{% endfor %}
+
+<div class="pagination">
+  <span class="step-links">
+      {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; primera</a>
+          <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+      {% endif %}
+
+      <span class="current">
+          Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">siguiente</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+      {% endif %}
+  </span>
+</div>
+
+{% endblock %}

@@ -1,0 +1,1 @@
+A clon for IMDB developed in Python using Django

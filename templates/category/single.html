@@ -1,0 +1,52 @@
+{% extends "../base.html" %} 
+{% block title %}{{category.name}}{% endblock %}
+{% block content %}
+
+<h1>{{category.name}}</h1>
+<p>{{category.description}}</p>
+<p>All films: {{category.total_films}}</p>
+
+<nav class="navbar navbar-expand-lg">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <p class="nav-item">1-50 of {{category.total_films}}</p>
+      </li>
+      <li class="nav-item">
+        <p class="nav-item">Sort by</p>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Popularity</a>
+          <a class="dropdown-item" href="#">Rating</a>
+          <a class="dropdown-item" href="#">Release date</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+{% for film in films %}
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary-emphasis">{{film.release_date}}</strong>
+          <h3 class="mb-0">{{film.title}}</h3>
+          <div class="mb-1 text-body-secondary">⭐{{film.calificacion}}</div>
+          <p class="card-text mb-auto">{{film.summary}}</p>
+          
+          <a href="{% url 'film:single' film.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">More details</a>
+        
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img src="{{film.image.url}}" alt="{{film.title}}">
+        </div>
+      </div>
+{% endfor %}
+
+{% endblock %}
